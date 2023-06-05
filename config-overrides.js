@@ -38,6 +38,27 @@ module.exports = function override(config, env) {
       {
         module: /node_modules\/@gnosis.pm/,
       },
+      {
+        module: /node_modules\/@web3-react/,
+      },
+      {
+        module: /node_modules\/web3/,
+      },
+      {
+        module: /node_modules\/@ethersproject/,
+      },
+      {
+        module: /node_modules\/@ethersproject\/abi/,
+      },
+      {
+        module: /node_modules\/ethereumjs-util/,
+      },
+      {
+        module: /node_modules\/ethereumjs-abi/,
+      },
+      {
+        module: /node_modules\/xhr2-cookies/,
+      }
     ],
   };
 };
