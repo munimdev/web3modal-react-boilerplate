@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import ConnectWallet from "../components/ConnectWallet";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function Landing() {
 
   return (
-    <div>
-      <h1>Home</h1>
+    <div className="grid h-screen bg-black place-items-center">
+      <ConnectWallet />
     </div>
   );
 }

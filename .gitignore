@@ -11,6 +11,9 @@
 # production
 /build
 
+# env
+.env
+
 /src/contracts
 
 # misc

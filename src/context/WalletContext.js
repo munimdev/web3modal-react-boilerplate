@@ -9,42 +9,58 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Web3 from "web3";
 import Web3Modal from "web3modal";
-import WalletConnectProvider from "@walletconnect/web3-provider";
+// import WalletConnectProvider from "@walletconnect/web3-provider"; // deprecated
+import { EthereumProvider } from "@walletconnect/ethereum-provider";
 
 const WalletContext = ({ children }) => {
   const INFURA_ID = process.env.REACT_APP_INFURA_ID;
+  const PROJECT_ID = process.env.REACT_APP_PROJECT_ID;
 
   const providerOptions = {
     walletconnect: {
-      package: WalletConnectProvider, // required
+      // package: WalletConnectProvider, // required
+      package: EthereumProvider, // required
       options: {
         rpc: {
           1: "https://mainnet.infura.io/v3/" + INFURA_ID,
           137: "https://matic-mainnet.chainstacklabs.com",
         },
         infuraId: INFURA_ID, // required
-        // chainId: 137,
         chainId: 1,
       },
     },
   };
 
   const [connectWalletModal, setConnectWalletModal] = useState(false);
+  const [providerClient, setProviderClient] = useState(undefined);
   const [account, setAccount] = useState(undefined);
   const [web3api, setWeb3api] = useState(undefined);
   const [userBalance, setUserBalance] = useState(undefined);
 
-  const connectWalletModalHanlde = () => {
+  useEffect(() => {
+    onInitializeProviderClient();
+  }, []);
+
+  async function onInitializeProviderClient() {
+    const client = await EthereumProvider.init({
+      projectId: PROJECT_ID,
+      showQrModal: true,
+      qrModalOptions: { themeMode: "dark" },
+      chains: [1],
+      methods: ["eth_sendTransaction", "personal_sign"],
+      events: ["chainChanged", "accountsChanged"],
+    });
+    setProviderClient(client);
+  }
+
+  const connectWalletModalHandle = () => {
     if (!isWalletConnected()) {
       setConnectWalletModal(!connectWalletModal);
     }
   };
 
-  const registerUser = async () => {
-    setAccount(account[0]);
-  };
-
-  const newConnectWallet = async () => {
+  const connectWallet = async () => {
+    // await providerClient.connect();
     const web3Modal = new Web3Modal({
       network: "mainnet",
       cacheProvider: true,
@@ -55,7 +71,7 @@ const WalletContext = ({ children }) => {
       const web3 = new Web3(provider);
       setWeb3api(web3);
       toast.success("Wallet connected");
-      var accounts = await web3.eth.getAccounts();
+      let accounts = await web3.eth.getAccounts();
       const balance = await web3.eth.getBalance(accounts[0]);
       setUserBalance(Web3.utils.fromWei(balance, "ether"));
       setAccount(accounts);
@@ -97,13 +113,13 @@ const WalletContext = ({ children }) => {
 
   const isWalletAlreadyConnected = async () => {
     if (isWalletConnected()) {
-      const accounts = await newConnectWallet();
+      const accounts = await connectWallet();
       setAccount(accounts);
     }
   };
 
   const getWalletAddress = () => {
-    return account ? account[0] : undefined;
+    return account? account : undefined;
   };
 
   const disconnectWalletFromApp = () => {
@@ -119,11 +135,9 @@ const WalletContext = ({ children }) => {
         web3api,
         isWalletAlreadyConnected,
         getWalletAddress,
-        registerUser,
         disconnectWalletFromApp,
-        connectWalletModalHanlde,
-        connectWalletModal,
-        newConnectWallet,
+        connectWalletModalHandle,
+        connectWallet,
       }}
     >
       {children}

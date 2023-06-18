@@ -8,11 +8,8 @@ export const disconnectWallet = () => {
   toast.info("Wallet disconnected");
 };
 
-const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
-const alchemyweb3 = createAlchemyWeb3(
-  "wss://polygon-mainnet.g.alchemy.com/v2/FNQUi5jSJLMFUvglT44EAeR5N6Gar43i"
-);
-export const web3 = alchemyweb3;
+
+export const web3 = new Web3("https://rpc.ankr.com/eth");
 
 export const isWalletConnected = () => {
   if (localStorage.getItem("isWalletConnected") === "true") {
