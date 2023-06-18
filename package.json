@@ -1,5 +1,5 @@
 {
-  "name": "4-elements",
+  "name": "React Web3 Starter Kit using Web3Modal and WalletConnectv2",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -23,6 +23,31 @@
     "web3": "^1.8.1",
     "web3modal": "^1.9.10"
   },
+  "keywords": [
+    "react",
+    "reactjs",
+    "react.js",
+    "web3",
+    "web3.js",
+    "web3js",
+    "web3-react",
+    "web3modal",
+    "walletconnect",
+    "walletconnect-react",
+    "walletconnect-reactjs",
+    "walletconnect-react.js",
+    "walletconnect-reactjs",
+    "walletconnect-react.js",
+    "walletconnect-react starter",
+    "web3modal react starter",
+    "walletconnect web3modal react start"
+  ],
+  "author": "Munim Zafar",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/munimdev/Web3-React-StarterKit.git"
+  },
+  "license": "MIT",
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",

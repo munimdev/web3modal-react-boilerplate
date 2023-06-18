@@ -32,26 +32,27 @@ const WalletContext = ({ children }) => {
   };
 
   const [connectWalletModal, setConnectWalletModal] = useState(false);
-  const [providerClient, setProviderClient] = useState(undefined);
   const [account, setAccount] = useState(undefined);
   const [web3api, setWeb3api] = useState(undefined);
   const [userBalance, setUserBalance] = useState(undefined);
+  
+  // Uncomment this for only using the Wallet Connect UI
+  // const [providerClient, setProviderClient] = useState(undefined);
+  // useEffect(() => {
+  //   onInitializeProviderClient();
+  // }, []);
 
-  useEffect(() => {
-    onInitializeProviderClient();
-  }, []);
-
-  async function onInitializeProviderClient() {
-    const client = await EthereumProvider.init({
-      projectId: PROJECT_ID,
-      showQrModal: true,
-      qrModalOptions: { themeMode: "dark" },
-      chains: [1],
-      methods: ["eth_sendTransaction", "personal_sign"],
-      events: ["chainChanged", "accountsChanged"],
-    });
-    setProviderClient(client);
-  }
+  // async function onInitializeProviderClient() {
+  //   const client = await EthereumProvider.init({
+  //     projectId: PROJECT_ID,
+  //     showQrModal: true,
+  //     qrModalOptions: { themeMode: "dark" },
+  //     chains: [1],
+  //     methods: ["eth_sendTransaction", "personal_sign"],
+  //     events: ["chainChanged", "accountsChanged"],
+  //   });
+  //   setProviderClient(client);
+  // }
 
   const connectWalletModalHandle = () => {
     if (!isWalletConnected()) {
