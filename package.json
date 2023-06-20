@@ -1,5 +1,5 @@
 {
-  "name": "React Web3 Starter Kit using Web3Modal and WalletConnectv2",
+  "name": "web3-react-starterkit",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
